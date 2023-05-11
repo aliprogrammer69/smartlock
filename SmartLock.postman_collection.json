@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "ae46fa8f-ad61-4f6b-b35e-5e98ca16191d",
+		"name": "SmartLock",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "346131"
+	},
+	"item": [
+		{
+			"name": "Lock",
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBZG1pbiIsImp0aSI6IjgzOWE4ZGU1LTNlZDgtNGQ0MC04NjYwLTI1NmNhYWZlYjE3YiIsImlhdCI6IjUvMTEvMjAyMyAxMToxODoyOSBBTSIsInVzZXJpZCI6MSwicm9sZSI6ImFkbWluIiwibmJmIjoxNjgzODAzOTA5LCJleHAiOjE2ODYzOTU5MDksImlzcyI6InJ1bnRpbWVhcHBzIiwiYXVkIjoiU21hcnRMb2NrIn0.lhpSIp3dpa1-WDQ21dOIj-JBWSMsF-beRUnWoWfwmOM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test lock\",\r\n    \"address\": \"1.1.1.1\",\r\n    \"isPublic\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SmartLockAddress}}/lock",
+							"host": [
+								"{{SmartLockAddress}}"
+							],
+							"path": [
+								"lock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unlock",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBZG1pbiIsImp0aSI6IjVjZDEyZDAyLWQ2MTMtNDkxOC05NDRmLTc4OTJlMjZlOWU2OSIsImlhdCI6IjUvMTEvMjAyMyAxMTo1MDoxMiBBTSIsInVzZXJpZCI6MSwicm9sZSI6ImFkbWluIiwibmJmIjoxNjgzODA1ODEyLCJleHAiOjE2ODYzOTc4MTIsImlzcyI6InJ1bnRpbWVhcHBzIiwiYXVkIjoiU21hcnRMb2NrIn0.lJDnLGBVUGUUcUCpLGdc-X9OzJ1OE76JJCz5ow5gINk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lockId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SmartLockAddress}}/lock/unlock",
+							"host": [
+								"{{SmartLockAddress}}"
+							],
+							"path": [
+								"lock",
+								"unlock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GrantAccess",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBZG1pbiIsImp0aSI6IjVjZDEyZDAyLWQ2MTMtNDkxOC05NDRmLTc4OTJlMjZlOWU2OSIsImlhdCI6IjUvMTEvMjAyMyAxMTo1MDoxMiBBTSIsInVzZXJpZCI6MSwicm9sZSI6ImFkbWluIiwibmJmIjoxNjgzODA1ODEyLCJleHAiOjE2ODYzOTc4MTIsImlzcyI6InJ1bnRpbWVhcHBzIiwiYXVkIjoiU21hcnRMb2NrIn0.lJDnLGBVUGUUcUCpLGdc-X9OzJ1OE76JJCz5ow5gINk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 3,\r\n    \"lockId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SmartLockAddress}}/lock/grant",
+							"host": [
+								"{{SmartLockAddress}}"
+							],
+							"path": [
+								"lock",
+								"grant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lock",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTeXN0ZW1Vc2VyIiwianRpIjoiODFlYWM3NTEtN2JkOS00MDY3LThkNjktNmU2NmQwZWYyMjViIiwiaWF0IjoiNS8xMS8yMDIzIDExOjUyOjE4IEFNIiwidXNlcmlkIjoyLCJyb2xlIjoic3lzdGVtIiwibmJmIjoxNjgzODA1OTM4LCJleHAiOjE2ODYzOTc5MzgsImlzcyI6InJ1bnRpbWVhcHBzIiwiYXVkIjoiU21hcnRMb2NrIn0.Hp4kSNKjDVj_fOAUhQASPgogSBtKLNBcCcsZkbe2Z8o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SmartLockAddress}}/lock",
+							"host": [
+								"{{SmartLockAddress}}"
+							],
+							"path": [
+								"lock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBZG1pbiIsImp0aSI6IjVjZDEyZDAyLWQ2MTMtNDkxOC05NDRmLTc4OTJlMjZlOWU2OSIsImlhdCI6IjUvMTEvMjAyMyAxMTo1MDoxMiBBTSIsInVzZXJpZCI6MSwicm9sZSI6ImFkbWluIiwibmJmIjoxNjgzODA1ODEyLCJleHAiOjE2ODYzOTc4MTIsImlzcyI6InJ1bnRpbWVhcHBzIiwiYXVkIjoiU21hcnRMb2NrIn0.lJDnLGBVUGUUcUCpLGdc-X9OzJ1OE76JJCz5ow5gINk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SmartLockAddress}}/lock/Transactions?lockId=2",
+							"host": [
+								"{{SmartLockAddress}}"
+							],
+							"path": [
+								"lock",
+								"Transactions"
+							],
+							"query": [
+								{
+									"key": "lockId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deny Access",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lockId\":1,\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SmartLockAddress}}/lock/deny",
+							"host": [
+								"{{SmartLockAddress}}"
+							],
+							"path": [
+								"lock",
+								"deny"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"Admin\",\r\n    \"password\": \"12345678\",\r\n    \"role\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SmartLockAddress}}/user/register",
+							"host": [
+								"{{SmartLockAddress}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Administrator\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SmartLockAddress}}/user/login",
+							"host": [
+								"{{SmartLockAddress}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyIiwianRpIjoiNmM5MzgzMGEtNzdjNi00YjJmLWE3ZDItYjJlNGIzZmFjMTIyIiwiaWF0IjoiNS8xMC8yMDIzIDQ6MjM6MTYgQU0iLCJ1c2VyaWQiOjMsInJvbGUiOiJ1c2VyIiwibmJmIjoxNjgzNjkyNTk2LCJleHAiOjE2ODYyODQ1OTYsImlzcyI6InJ1bnRpbWVhcHBzIiwiYXVkIjoiU21hcnRMb2NrIn0.lzcrqHN2CMlVvCXi3RiplZORV0ta8bsd11_WIla7XsQ\",\r\n    \"refreshToken\":\"UHL19E6gzb+xtG+c0Z3PvIf1KQQu4j6o8TTlqP84mM8=\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SmartLockAddress}}/user/refreshtoken",
+							"host": [
+								"{{SmartLockAddress}}"
+							],
+							"path": [
+								"user",
+								"refreshtoken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBZG1pbiIsImp0aSI6IjgwZjU3ZWMxLTM2NTgtNDU3Yy04MzQxLTk0ZjkwMzY4YjA3OSIsImlhdCI6IjUvMTEvMjAyMyAxMTowMDoxMyBBTSIsInVzZXJpZCI6MSwicm9sZSI6ImFkbWluIiwibmJmIjoxNjgzODAyODEzLCJleHAiOjE2ODYzOTQ4MTMsImlzcyI6InJ1bnRpbWVhcHBzIiwiYXVkIjoiU21hcnRMb2NrIn0.s6uqwZmSuI_HfLNDTWg_LpCOKzI9xbD4cgKAVw3_qXg",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
