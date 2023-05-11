@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-using NLog.Extensions.Logging;
 using NLog.Web;
 
 using SmartLock.Application.Configurations.Models;
