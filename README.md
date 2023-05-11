@@ -15,8 +15,8 @@ The easiest way to get started is to follow these instructions to get the projec
 
 ### Prerequisites
 You will need the following tools:
-*  [JetBrains Rider](https://www.jetbrains.com/rider/) (version 2021.1.5 or later) or [Visual Studio 2019](https://visualstudio.microsoft.com/vs/) (version 16.10.4 or later)
-*  [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0)
+* [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (version 17.5.5 or later)
+* [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0)
 
   
 
