@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
+using NLog.Extensions.Logging;
+using NLog.Web;
+
 using SmartLock.Application.Configurations.Models;
 using SmartLock.Bootstrapper.Extensions;
 using SmartLock.Infrastructure.DataBase.Configurations;
@@ -26,8 +29,8 @@ builder.Services.AddSmartLock()
                 .AddSmartLockAuthentication(builder.Configuration.GetOptions<Audience>("audience"))
                 .AddSmartLockAuthorization();
 
-//builder.Logging.AddNLog("NLog.config");
-//builder.Host.UseNLog();
+builder.Logging.AddNLog("NLog.config");
+builder.Host.UseNLog();
 
 builder.Services.AddTransient<IConfigureOptions<MvcOptions>, StatusAwareOutputFormatterSetup>();
 
