@@ -20,9 +20,11 @@ namespace SmartLock.Infrastructure.Domain.Trasaction {
             if (totalCount > 0)
                 transactions = await _dbContext.transactions.Include(p => p.Lock)
                                                             .Include(p => p.User)
+                                                            .Include(p => p.User.Role)
                                                             .Where(t => t.LockId == lockId)
                                                             .Skip(after)
                                                             .Take(first)
+                                                            .OrderBy(t => t.CreateDate)
                                                             .ToListAsync();
 
             return new TransactionResult(transactions, totalCount, first, after);

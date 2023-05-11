@@ -9,11 +9,11 @@ using SmartLock.Infrastructure.DataBase;
 
 #nullable disable
 
-namespace SmartLock.Infrastructure.Database.Migrations
+namespace SmartLock.Infrastructure.DataBase.Migrations
 {
     [DbContext(typeof(SmartLockDbContext))]
-    [Migration("20230509094704_init_sql")]
-    partial class init_sql
+    [Migration("20230511101457_initsql")]
+    partial class initsql
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locks", (string)null);
+                    b.ToTable("Locks", "data");
                 });
 
             modelBuilder.Entity("SmartLock.Domain.Entities.Role", b =>
@@ -90,27 +90,27 @@ namespace SmartLock.Infrastructure.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles", "security");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2023, 5, 9, 14, 17, 4, 93, DateTimeKind.Local).AddTicks(648),
+                            CreateDate = new DateTime(2023, 5, 11, 13, 44, 57, 347, DateTimeKind.Local).AddTicks(8823),
                             Key = "admin",
                             Name = "Administrator"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2023, 5, 9, 14, 17, 4, 93, DateTimeKind.Local).AddTicks(694),
+                            CreateDate = new DateTime(2023, 5, 11, 13, 44, 57, 347, DateTimeKind.Local).AddTicks(8834),
                             Key = "user",
                             Name = "User"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2023, 5, 9, 14, 17, 4, 93, DateTimeKind.Local).AddTicks(697),
+                            CreateDate = new DateTime(2023, 5, 11, 13, 44, 57, 347, DateTimeKind.Local).AddTicks(8835),
                             Key = "system",
                             Name = "System"
                         });
@@ -130,9 +130,6 @@ namespace SmartLock.Infrastructure.Database.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("LastUpdateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<long>("LockId")
                         .HasColumnType("bigint");
 
@@ -148,7 +145,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Transactions", (string)null);
+                    b.ToTable("Transactions", "data");
                 });
 
             modelBuilder.Entity("SmartLock.Domain.Entities.User", b =>
@@ -197,7 +194,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users", "data");
                 });
 
             modelBuilder.Entity("UserLock", b =>
@@ -212,7 +209,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
 
                     b.HasIndex("AccessedUsersId");
 
-                    b.ToTable("UserLock");
+                    b.ToTable("UserLock", "data");
                 });
 
             modelBuilder.Entity("SmartLock.Domain.Entities.Transaction", b =>

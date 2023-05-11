@@ -35,7 +35,7 @@ namespace SmartLock.Application.Transaction.Queries.Handlers {
 
             if (string.Equals(_userManagment.CurrentUser.Role.Key, RoleKeys.User) &&
                 !await _userRepository.HasAccessToLock(_userManagment.CurrentUser.Id, request.LockId))
-                return new Result<TransactionResultDto>(ResultCode.Unauthorized);
+                return new Result<TransactionResultDto>(ResultCode.Unauthorized, null);
 
             TransactionResult result = await _transactionRepository.GetAll(request.LockId, request.First, request.After);
             return new Result<TransactionResultDto>() {

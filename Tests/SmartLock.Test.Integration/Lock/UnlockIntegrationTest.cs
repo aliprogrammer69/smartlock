@@ -18,7 +18,7 @@ namespace SmartLock.Test.Integration.Lock {
             UnlockCommand request = new(@lock.Id);
             Result result = await _mediator.Send(request);
 
-            result.Success.Should().BeFalse();
+            result.Success.Should().BeTrue();
             @lock.IsLocked.Should().BeFalse();
         }
 

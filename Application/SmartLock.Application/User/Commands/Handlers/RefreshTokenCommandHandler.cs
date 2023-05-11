@@ -7,6 +7,7 @@ using SmartLock.Application.Services;
 using SmartLock.Application.User.Dtos;
 using SmartLock.Domain.Repositories;
 using SmartLock.Shared.Abstraction;
+using SmartLock.Shared.Abstraction.Infrastructure;
 using SmartLock.Shared.Abstraction.Models;
 
 using Entities = SmartLock.Domain.Entities;
@@ -16,13 +17,16 @@ namespace SmartLock.Application.User.Commands.Handlers {
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IObjectMapper _mapper;
 
         public RefreshTokenCommandHandler(IAuthenticationProvider authenticationProvider,
                                           IUserRepository userRepository,
-                                          IUnitOfWork unitOfWork) {
+                                          IUnitOfWork unitOfWork,
+                                          IObjectMapper mapper) {
             _authenticationProvider = authenticationProvider;
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<Result<AuthenticationResult>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken) {
@@ -37,8 +41,9 @@ namespace SmartLock.Application.User.Commands.Handlers {
             if (!string.Equals(request.RefreshToken, user.RefreshToken))
                 return new(ResultCode.Forbidden, null);
 
-            AuthenticationResult result = new(_authenticationProvider.GenerateAccessToken(user),
-                                               _authenticationProvider.GenerateRefreshToken());
+            AuthenticationResult result = new(_mapper.Map<UserDto>(user),
+                                              _authenticationProvider.GenerateAccessToken(user),
+                                              _authenticationProvider.GenerateRefreshToken());
 
             user.Login(result.RefreshToken.Value, result.AccessToken.Expires);
             _userRepository.Edit(user);

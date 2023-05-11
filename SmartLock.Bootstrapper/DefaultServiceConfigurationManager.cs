@@ -61,6 +61,7 @@ namespace SmartLock.Bootstrapper {
             service.AddSingleton(mapper)
                    .AddSingleton<ICacheService, LocalCacheService>()
                    .AddSingleton<IObjectMapper, AutoMapperWrapper>()
+                   .AddSingleton<SqlServerInitializer>()
                    .AddValidatorsFromAssembly(typeof(Application.AssemblyReference).Assembly);
             return this;
         }

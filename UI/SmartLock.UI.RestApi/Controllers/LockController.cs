@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SmartLock.Application.Lock.Commands;
 using SmartLock.Application.Transaction.Dtos;
 using SmartLock.Application.Transaction.Queries;
+using SmartLock.Domain.Entities;
 using SmartLock.Shared.Abstraction;
 using SmartLock.Shared.Abstraction.Models;
 
@@ -23,7 +24,7 @@ namespace SmartLock.UI.RestApi.Controllers {
 
         [HttpPost]
         [Authorize(Roles = $"{RoleKeys.Admin}")]
-        public Task<Result> Add(AddNewLockCommand command) =>
+        public Task<Result<Lock>> Add(AddNewLockCommand command) =>
             _mediator.Send(command);
 
         [HttpPut]

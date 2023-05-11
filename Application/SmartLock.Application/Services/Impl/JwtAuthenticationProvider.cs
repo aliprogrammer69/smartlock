@@ -8,6 +8,7 @@ using SmartLock.Application.Configurations.Models;
 using SmartLock.Application.Consts;
 using SmartLock.Application.User.Dtos;
 using SmartLock.Domain.Repositories;
+using SmartLock.Shared.Abstraction.Infrastructure;
 using SmartLock.Shared.Abstraction.Services;
 
 namespace SmartLock.Application.Services.Impl {
@@ -17,21 +18,26 @@ namespace SmartLock.Application.Services.Impl {
         private readonly ICryptoService _cryptoService;
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IObjectMapper _mapper;
 
         public JwtAuthenticationProvider(Audience audience,
                                          RefreshTokenConfig refreshTokenConfig,
                                          ICryptoService cryptoService,
                                          IUserRepository userRepository,
-                                         IUnitOfWork unitOfWork) {
+                                         IUnitOfWork unitOfWork,
+                                         IObjectMapper objectMapper) {
             _audience = audience;
             _refreshTokenConfig = refreshTokenConfig;
             _cryptoService = cryptoService;
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _mapper = objectMapper;
         }
 
         public async Task<AuthenticationResult> LoginAsync(Domain.Entities.User userInfo, IEnumerable<KeyValuePair<string, string>> claims = null) {
-            AuthenticationResult result = new(GenerateAccessToken(userInfo, claims), GenerateRefreshToken());
+            AuthenticationResult result = new(_mapper.Map<UserDto>(userInfo),
+                                              GenerateAccessToken(userInfo, claims),
+                                              GenerateRefreshToken());
             userInfo.Login(result.RefreshToken.Value, result.RefreshToken.Expires);
             _userRepository.Edit(userInfo);
             await _unitOfWork.CommitAsync();

@@ -7,6 +7,7 @@ namespace SmartLock.Domain.Repositories {
         void Edit(User user);
         Task<User> GetByIdAsync(ulong id);
         Task<User> GetByUsernameAsync(string username);
+        Task<bool> UsernameExistsAsync(string username);
         Task<bool> HasAccessToLock(ulong userId, ulong lockId);
     }
 }

@@ -5,16 +5,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace SmartLock.Infrastructure.Database.Migrations
+namespace SmartLock.Infrastructure.DataBase.Migrations
 {
     /// <inheritdoc />
-    public partial class init_sql : Migration
+    public partial class initsql : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "data");
+
+            migrationBuilder.EnsureSchema(
+                name: "security");
+
             migrationBuilder.CreateTable(
                 name: "Locks",
+                schema: "data",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -33,6 +40,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Roles",
+                schema: "security",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -49,6 +57,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
+                schema: "data",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "Bigint", nullable: false)
@@ -69,6 +78,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
                     table.ForeignKey(
                         name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
+                        principalSchema: "security",
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -76,6 +86,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Transactions",
+                schema: "data",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -84,8 +95,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
                     UserId = table.Column<long>(type: "Bigint", nullable: false),
                     Action = table.Column<byte>(type: "tinyint", nullable: false),
                     Success = table.Column<bool>(type: "bit", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastUpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,12 +103,14 @@ namespace SmartLock.Infrastructure.Database.Migrations
                     table.ForeignKey(
                         name: "FK_Transactions_Locks_LockId",
                         column: x => x.LockId,
+                        principalSchema: "data",
                         principalTable: "Locks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Transactions_Users_UserId",
                         column: x => x.UserId,
+                        principalSchema: "data",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -106,6 +118,7 @@ namespace SmartLock.Infrastructure.Database.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserLock",
+                schema: "data",
                 columns: table => new
                 {
                     AccessedLocksId = table.Column<long>(type: "bigint", nullable: false),
@@ -117,44 +130,51 @@ namespace SmartLock.Infrastructure.Database.Migrations
                     table.ForeignKey(
                         name: "FK_UserLock_Locks_AccessedLocksId",
                         column: x => x.AccessedLocksId,
+                        principalSchema: "data",
                         principalTable: "Locks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserLock_Users_AccessedUsersId",
                         column: x => x.AccessedUsersId,
+                        principalSchema: "data",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
+                schema: "security",
                 table: "Roles",
                 columns: new[] { "Id", "CreateDate", "Key", "LastUpdateDate", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 5, 9, 14, 17, 4, 93, DateTimeKind.Local).AddTicks(648), "admin", null, "Administrator" },
-                    { 2, new DateTime(2023, 5, 9, 14, 17, 4, 93, DateTimeKind.Local).AddTicks(694), "user", null, "User" },
-                    { 3, new DateTime(2023, 5, 9, 14, 17, 4, 93, DateTimeKind.Local).AddTicks(697), "system", null, "System" }
+                    { 1, new DateTime(2023, 5, 11, 13, 44, 57, 347, DateTimeKind.Local).AddTicks(8823), "admin", null, "Administrator" },
+                    { 2, new DateTime(2023, 5, 11, 13, 44, 57, 347, DateTimeKind.Local).AddTicks(8834), "user", null, "User" },
+                    { 3, new DateTime(2023, 5, 11, 13, 44, 57, 347, DateTimeKind.Local).AddTicks(8835), "system", null, "System" }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_LockId",
+                schema: "data",
                 table: "Transactions",
                 column: "LockId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_UserId",
+                schema: "data",
                 table: "Transactions",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLock_AccessedUsersId",
+                schema: "data",
                 table: "UserLock",
                 column: "AccessedUsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
+                schema: "data",
                 table: "Users",
                 column: "RoleId");
         }
@@ -163,19 +183,24 @@ namespace SmartLock.Infrastructure.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Transactions");
+                name: "Transactions",
+                schema: "data");
 
             migrationBuilder.DropTable(
-                name: "UserLock");
+                name: "UserLock",
+                schema: "data");
 
             migrationBuilder.DropTable(
-                name: "Locks");
+                name: "Locks",
+                schema: "data");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Users",
+                schema: "data");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Roles",
+                schema: "security");
         }
     }
 }

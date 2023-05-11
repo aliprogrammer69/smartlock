@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 using SmartLock.Domain;
 using SmartLock.Domain.Entities;
+using SmartLock.Infrastructure.Consts;
 
 namespace SmartLock.Infrastructure.Domain.Trasaction {
     public sealed class TrasanctionEntityTypeConfiguration : IEntityTypeConfiguration<Transaction> {
         public void Configure(EntityTypeBuilder<Transaction> builder) {
-            builder.ToTable("Transactions");
+            builder.ToTable("Transactions", DataBaseSchema.DataSchema);
 
             builder.HasKey(k => k.Id);
 

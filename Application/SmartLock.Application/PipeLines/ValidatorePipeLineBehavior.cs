@@ -2,7 +2,6 @@
 
 using MediatR;
 
-using SmartLock.Application.User.Commands;
 using SmartLock.Shared.Abstraction.Models;
 
 namespace SmartLock.Application.PipeLines {

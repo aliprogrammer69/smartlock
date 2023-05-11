@@ -29,12 +29,10 @@ namespace SmartLock.Application.Lock.Commands.Handlers {
 
 
             bool unLockResult = true;
-            if (item.IsLocked) {
-                unLockResult = item.UnLock(_userManagment.CurrentUser);
-                if (unLockResult) {
-                    _lockRepository.Edit(item);
-                    await _unitOfWork.CommitAsync(cancellationToken: cancellationToken);
-                }
+            unLockResult = item.UnLock(_userManagment.CurrentUser);
+            if (unLockResult) {
+                _lockRepository.Edit(item);
+                await _unitOfWork.CommitAsync(cancellationToken: cancellationToken);
             }
 
             return new Result(unLockResult ? ResultCode.Ok : ResultCode.Forbidden, null);

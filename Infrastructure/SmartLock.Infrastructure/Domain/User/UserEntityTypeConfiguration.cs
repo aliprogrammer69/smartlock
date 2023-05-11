@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+using SmartLock.Infrastructure.Consts;
+
 using Entities = SmartLock.Domain.Entities;
 
 namespace SmartLock.Infrastructure.Domain.User {
     internal sealed class UserEntityTypeConfiguration : IEntityTypeConfiguration<Entities.User> {
         public void Configure(EntityTypeBuilder<Entities.User> builder) {
-            builder.ToTable("Users");
+            builder.ToTable("Users", DataBaseSchema.DataSchema);
 
             builder.HasKey(t => t.Id);
 

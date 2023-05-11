@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+using SmartLock.Infrastructure.Consts;
+
 using Entities = SmartLock.Domain.Entities;
 
 namespace SmartLock.Infrastructure.Domain.Lock {
     internal sealed class LockEntityTypeConfiguration : IEntityTypeConfiguration<Entities.Lock> {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Entities.Lock> builder) {
-            builder.ToTable("Locks");
+            builder.ToTable("Locks", DataBaseSchema.DataSchema);
 
             builder.HasKey(x => x.Id);
 

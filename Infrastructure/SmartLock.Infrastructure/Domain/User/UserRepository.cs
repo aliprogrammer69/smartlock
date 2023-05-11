@@ -22,5 +22,8 @@ namespace SmartLock.Infrastructure.Domain.User {
                             .AsNoTracking()
                             .AnyAsync(u => u.AccessedLocks.Any(l => l.Id == lockId));
 
+        public Task<bool> UsernameExistsAsync(string username) =>
+            _dbContext.Users.AsNoTracking()
+                            .AnyAsync(u => u.UserName == username);
     }
 }

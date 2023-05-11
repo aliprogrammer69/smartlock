@@ -16,7 +16,7 @@ namespace SmartLock.Tests.Application.UnitTest.User.Commands {
         readonly Mock<IAuthenticationProvider> _authenticationProvider = new();
         readonly RegisterUserCommand _request;
         readonly RegisterUserCommandHandler _handler;
-        readonly Role _adminRole = new (1, "Admin", "admin");
+        readonly Role _adminRole = new(1, "Admin", "admin");
         readonly string salt = "11111111111111111";
         public RegisterUserCommandHandlerTest() {
             _handler = new RegisterUserCommandHandler(_userRepository.Object, _roleRepository.Object, _cryptoService.Object, moqUnitOfWork.Object, _authenticationProvider.Object);
@@ -26,7 +26,7 @@ namespace SmartLock.Tests.Application.UnitTest.User.Commands {
             _cryptoService.Setup(c => c.Hash(_request.Password, salt)).Returns("");
 
             _authenticationProvider.Setup(a => a.LoginAsync(It.IsAny<Entities.User>(), It.IsAny<IEnumerable<KeyValuePair<string, string>>>()))
-                                   .ReturnsAsync(new AuthenticationResult(null));
+                                   .ReturnsAsync(new AuthenticationResult(null, null));
         }
 
         [Fact]
