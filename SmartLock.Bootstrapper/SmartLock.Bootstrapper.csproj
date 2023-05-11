@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\SmartLock.Application\SmartLock.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\SmartLock.Infrastructure\SmartLock.Infrastructure.csproj" />
+    <ProjectReference Include="..\Shared\SmartLock.Shared.Abstraction\SmartLock.Shared.Abstraction.csproj" />
+    <ProjectReference Include="..\Shared\SmartLock.Shared\SmartLock.Shared.csproj" />
+    <ProjectReference Include="..\SmartLock.Domain\SmartLock.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
