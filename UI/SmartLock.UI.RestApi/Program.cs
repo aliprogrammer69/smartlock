@@ -21,9 +21,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddSmartLock()
                 .AddSmartLockDbContext(opt => {
-                    DataBaseOptions dbOption = builder.Configuration.GetOptions<DataBaseOptions>("databaseConfig");
-                    SmartLockDbContextConfiguration.ConfigSqlServerDbContext(opt, dbOption);
-                    //SmartLockDbContextConfiguration.ConfigInMemoryDbContext(opt);
+                    //DataBaseOptions dbOption = builder.Configuration.GetOptions<DataBaseOptions>("databaseConfig");
+                    //SmartLockDbContextConfiguration.ConfigSqlServerDbContext(opt, dbOption);
+                    SmartLockDbContextConfiguration.ConfigInMemoryDbContext(opt);
                 })
                 .AddSmartLockAuthentication(builder.Configuration.GetOptions<Audience>("audience"))
                 .AddSmartLockAuthorization();
@@ -41,7 +41,9 @@ if (app.Environment.IsDevelopment())
 else
     app.UseSmartLockExceptionHandler();
 
-app.UseAutoMigrateSQLServerDataBase(); //In order to use Inmemory dbcontext, comment this line of code
+//app.UseAutoMigrateRelationalDataBase(); //In order to use Inmemory dbcontext, comment this line of code
+
+app.UseIMemorySeeds(); // Commmit this line, if you want to use sql server.
 
 app.UseAuthorization();
 

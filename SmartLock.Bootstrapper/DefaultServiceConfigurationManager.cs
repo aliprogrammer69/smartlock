@@ -24,6 +24,7 @@ using SmartLock.Infrastructure.Domain.Lock;
 using SmartLock.Infrastructure.Domain.Role;
 using SmartLock.Infrastructure.Domain.Trasaction;
 using SmartLock.Infrastructure.Domain.User;
+using SmartLock.Infrastructure.Helpers;
 using SmartLock.Shared.Abstraction.Domain;
 using SmartLock.Shared.Abstraction.Infrastructure;
 using SmartLock.Shared.Abstraction.Services;
@@ -62,6 +63,7 @@ namespace SmartLock.Bootstrapper {
                    .AddSingleton<ICacheService, LocalCacheService>()
                    .AddSingleton<IObjectMapper, AutoMapperWrapper>()
                    .AddSingleton<SqlServerInitializer>()
+                   .AddScoped<SeedHelper>()
                    .AddValidatorsFromAssembly(typeof(Application.AssemblyReference).Assembly);
             return this;
         }

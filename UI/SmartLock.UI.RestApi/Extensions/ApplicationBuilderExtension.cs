@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 
 using SmartLock.Application.Consts;
+using SmartLock.Infrastructure.Helpers;
 using SmartLock.Shared.Abstraction;
 using SmartLock.Shared.Abstraction.Models;
 
@@ -19,7 +20,14 @@ namespace SmartLock.UI.RestApi.Extensions {
                     }
                 });
             });
+            return app;
+        }
 
+        public static IApplicationBuilder UseIMemorySeeds(this IApplicationBuilder app) {
+            using (IServiceScope scope = app.ApplicationServices.CreateScope()) {
+                SeedHelper helper = scope.ServiceProvider.GetService<SeedHelper>();
+                helper.AddRoles();
+            }
             return app;
         }
     }

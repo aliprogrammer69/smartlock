@@ -2,7 +2,7 @@
 
 namespace SmartLock.UI.RestApi.Extensions {
     public static class WebApplicationExtension {
-        public static WebApplication UseAutoMigrateSQLServerDataBase(this WebApplication app) {
+        public static WebApplication UseAutoMigrateRelationalDataBase(this WebApplication app) {
             app.Services.GetService<SqlServerInitializer>().AutoMigrate();
             return app;
         }
